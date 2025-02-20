@@ -1,10 +1,18 @@
 from PySnake.QSnake import QSnake
-from PySnake.Config import * 
+from PySnake.Config import *
 
-from PyQt5.QtWidgets import QMainWindow, QLabel, QFrame, QVBoxLayout, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import (
+    QMainWindow,
+    QLabel,
+    QFrame,
+    QVBoxLayout,
+    QHBoxLayout,
+    QWidget,
+)
+
 
 class PySnake(QMainWindow):
-    def __init__(self, time_delay = 100):
+    def __init__(self, time_delay=100):
         super().__init__()
         self.setWindowTitle("Snake Game")
         self.setGeometry(100, 100, QSNAKE_WIDTH, QSNAKE_HEIGHT + LABEL_HEIGHT)
@@ -13,7 +21,7 @@ class PySnake(QMainWindow):
         self.score_label.setFixedHeight(LABEL_HEIGHT)
         self.time_label = QLabel("Time: 0")
         self.time_label.setFixedHeight(LABEL_HEIGHT)
-        
+
         top_layout = QHBoxLayout()
         top_layout.setContentsMargins(0, 0, 0, 0)
         top_layout.setSpacing(0)

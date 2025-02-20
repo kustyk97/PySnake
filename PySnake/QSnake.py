@@ -1,9 +1,10 @@
 import random
-from PyQt5.QtWidgets import QWidget,  QApplication, QMessageBox, QWidget
+from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QWidget
 from PyQt5.QtCore import QBasicTimer, Qt, QPoint, QTime
 from PyQt5.QtGui import QPainter
 
-from PySnake.Config import *    
+from PySnake.Config import *
+
 
 class QSnake(QWidget):
     def __init__(self, score_label, time_label, time_delay=100):
@@ -12,7 +13,9 @@ class QSnake(QWidget):
         self.score_label = score_label
         self.time_label = time_label
         self.timer = QBasicTimer()
-        self.snake = list(reversed([QPoint(MAP_STEP*i, 0) for i in range(SNAKE_LENGTH)]))
+        self.snake = list(
+            reversed([QPoint(MAP_STEP * i, 0) for i in range(SNAKE_LENGTH)])
+        )
         self.direction = QPoint(MAP_STEP, 0)
         self.food = QPoint(0, 0)
         self.isGameOver = False
@@ -25,7 +28,7 @@ class QSnake(QWidget):
         self.timer.start(time_delay, self)
 
     def initUI(self):
-        self.setWindowTitle('Snake Game')
+        self.setWindowTitle("Snake Game")
         self.setGeometry(0, 0, QSNAKE_WIDTH, QSNAKE_HEIGHT)
         self.setFocusPolicy(Qt.StrongFocus)
         self.show()
@@ -48,7 +51,7 @@ class QSnake(QWidget):
         painter.fillRect(self.food.x(), self.food.y(), MAP_STEP, MAP_STEP, FOOD_COLOR)
 
     def keyPressEvent(self, event):
-        
+
         if event.key() == Qt.Key_Escape:
             QApplication.instance().quit()
         elif event.key() == Qt.Key_Up and self.direction != QPoint(0, MAP_STEP):
@@ -89,10 +92,14 @@ class QSnake(QWidget):
 
     def checkCollision(self):
         head = self.snake[0]
-        if (head.x() < 0 or head.x() >= QSNAKE_WIDTH or
-                head.y() < 0 or head.y() >= QSNAKE_HEIGHT or
-                head in self.snake[1:]):
+        if (
+            head.x() < 0
+            or head.x() >= QSNAKE_WIDTH
+            or head.y() < 0
+            or head.y() >= QSNAKE_HEIGHT
+            or head in self.snake[1:]
+        ):
             self.isGameOver = True
 
-            QMessageBox.information(self, "Game Over", f'Your score: {self.score}')
+            QMessageBox.information(self, "Game Over", f"Your score: {self.score}")
             QApplication.instance().quit()
